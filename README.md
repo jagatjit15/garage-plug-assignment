@@ -8,11 +8,11 @@ assumed that customer has already made the payment while creating the order).
 > ### CustomerDAO :- To take the user data for registering user in the form of JSON.
 
 ### TechsUsed
-> SpringBoot
-> DATA JPA
-> JAVA
-> Validation
-> Mysql
+- SpringBoot
+- DATA JPA
+- JAVA
+- Validation
+- Mysql
 
 ## EndPoint for REST API
 - /garageplug/users. 
