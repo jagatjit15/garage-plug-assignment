@@ -14,13 +14,24 @@ assumed that customer has already made the payment while creating the order).
 - Validation
 - Mysql
 
-## EndPoint for REST API
-- /garageplug/users. 
-   -(Common end point)
-- /garageplug/users/register. 
-   -(for registering a customer)
+<br>
+
+> # API / Endpoint
+
+`https://localhost:8888/`
+
+`http://localhost:8888/swagger-ui/`
+
+`http://localhost:8888/swagger-ui/garageplug/users`
+
+`http://localhost:8888/swagger-ui/garageplug/users/register`
+
+- (for registering a customer)
    -required emailId, phoneNumber, password, firstName, lastName.
 
-- /garageplug/users/cart.
-  (for confirming an order)
+`http://localhost:8888/swagger-ui/garageplug/users/cart`
+- (for confirming an order)
    required EmailId
+
+<br>
+
