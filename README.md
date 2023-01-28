@@ -18,18 +18,18 @@ assumed that customer has already made the payment while creating the order).
 
 > # API / Endpoint
 
-`https://localhost:8888/`
+`https://localhost:8989/`
 
-`http://localhost:8888/swagger-ui/`
+`http://localhost:8989/swagger-ui/`
 
-`http://localhost:8888/swagger-ui/garageplug/users`
+`http://localhost:8989/swagger-ui/garageplug/users`
 
-`http://localhost:8888/swagger-ui/garageplug/users/register`
+`http://localhost:8989/swagger-ui/garageplug/users/register`
 
 - (for registering a customer)
    -required emailId, phoneNumber, password, firstName, lastName.
 
-`http://localhost:8888/swagger-ui/garageplug/users/cart`
+`http://localhost:8989/swagger-ui/garageplug/users/cart`
 - (for confirming an order)
    required EmailId
 
