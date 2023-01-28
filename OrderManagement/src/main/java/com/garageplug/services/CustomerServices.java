@@ -7,7 +7,7 @@ import com.garageplug.exceptions.UserCreationException;
 
 public interface CustomerServices {
 	
-	public String RegisterUser(CustomerDao user) throws UserCreationException;
+	public String registerUser(CustomerDao user) throws UserCreationException;
 	
 
 }

@@ -30,7 +30,7 @@ public class UserController {
 	@PostMapping("/register")
 	public ResponseEntity<String> userRegistrationHandler(@Valid @RequestBody CustomerDao customer){
 		
-		String response = customerService.RegisterUser(customer);
+		String response = customerService.registerUser(customer);
 		
 		return new ResponseEntity<String>(response, HttpStatus.CREATED);
 		

@@ -17,7 +17,7 @@ public class CustomerServiceImplementation implements CustomerServices{
 	
 
 	@Override
-	public String RegisterUser(CustomerDao user) throws UserCreationException {
+	public String registerUser(CustomerDao user) throws UserCreationException {
 		
 		Customer existingCustomer = customerRepo.findByEmail(user.getEmailId());
 		
