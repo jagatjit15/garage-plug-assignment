@@ -2,7 +2,6 @@ package com.garageplug.entities;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +10,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
+//This entity class stores order data and discount amount in percentage in database.
+//The Order Entity and Customer entity have Many to One relation between them.
 
 @Entity
 @Table(name = "Orders")
@@ -21,13 +24,13 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JsonIgnore
     private Customer customer;
 
     private LocalDateTime orderDate;
     
-    private Integer discountAmount;
+    private Integer discountAmountInPercentage;
     
     
 //    Constructors
@@ -44,7 +47,7 @@ public Order(Long id, Customer customer, LocalDateTime orderDate, Integer discou
 	this.id = id;
 	this.customer = customer;
 	this.orderDate = orderDate;
-	this.discountAmount = discountAmount;
+	this.discountAmountInPercentage = discountAmount;
 }
 
 
@@ -93,14 +96,14 @@ public Order(Long id, Customer customer, LocalDateTime orderDate, Integer discou
 
 
 	public Integer getDiscountAmount() {
-		return discountAmount;
+		return discountAmountInPercentage;
 	}
 
 
 
 
 	public void setDiscountAmount(Integer discountAmount) {
-		this.discountAmount = discountAmount;
+		this.discountAmountInPercentage = discountAmount;
 	}
 
 
