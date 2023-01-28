@@ -2,23 +2,29 @@ package com.garageplug.entities;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+/*
+ * This DAO class is used for taking User data in JSON format from user.
+ * */
+
+
 
 public class CustomerDao {
 	
-	@Email
+	@Email(message = "Valid email required")
 	private String emailId;
 
 	private String firstName;
 	
 	private String lastName;
 	
-	@Pattern(regexp = "[0-9]{10}")
+	@Pattern(regexp = "[6-9]{1}[0-9]{9}")
 	private String phone;
 		
+	@Size(min = 7, max = 15)
 	private String password;
 
-	
-	
 	public CustomerDao() {
 		super();
 	}

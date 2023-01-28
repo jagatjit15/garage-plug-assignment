@@ -3,7 +3,6 @@ package com.garageplug.services;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,53 +29,67 @@ public class OrderServicesImplementation implements OrderServices{
 	@Override
 	public String Checkout(String emailId) throws UserCreationException, OrderException {
 		
-		Optional<Customer> optional = customerRepo.findById(emailId);
+		Customer existingCustomer = customerRepo.findByEmail(emailId);
 		
-		if(optional.isPresent()) {
+		if(existingCustomer != null) {
 			
-			Customer customer = optional.get();
 			
 			Order order = new Order();
 			
-			customer.setOrderCount(customer.getOrderList().size() + 1);
-			order.setCustomer(customer);
-			order.setOrderDate(LocalDateTime.now());
+			if(existingCustomer.getOrderCount() == null)
+				existingCustomer.setOrderCount(1);
 			
-			List<Order> list = customer.getOrderList();
-			list.add(order);
-			customer.setOrderList(list);
+			else
+				existingCustomer.setOrderCount(existingCustomer.getOrderCount() + 1);
 			
-			orderRepo.save(order);
+			placeOrder(order, existingCustomer);
 			
+			if(existingCustomer.getOrderCount() >= 6 && existingCustomer.getOrderCount() < 10)
+				return "Order Placed! Purchase "+(10 - existingCustomer.getOrderCount())+" more to become GOLD customer"
+						+ " and get 10% off";
 			
-			if(customer.getOrderCount() >= 0 && customer.getOrderCount() < 10) {
-				
-				return "Order "+ (10 - customer.getOrderList().size()) +" More to Become Gold Customer";
-				
-			}
+			else if(existingCustomer.getOrderCount() == 10)
+				return "GOLD Level achieved";
 			
-			else if(customer.getOrderCount() == 10) {
-				
-				return "You are a Gold Customer now";
-				
-			}
+			else if(existingCustomer.getOrderCount() >= 16 && existingCustomer.getOrderCount() < 20)
+				return "Order Placed! Purchase "+(20 - existingCustomer.getOrderCount())+" more to become PLATINUM customer"
+						+ " and get 20% off";
 			
-           else if(customer.getOrderCount() > 10 && customer.getOrderCount() < 20) {
-				
-        	   return "Order "+ (20 - customer.getOrderList().size()) +" More to Become Platinum Customer";
-				
-			}
+			else if(existingCustomer.getOrderCount() == 20)
+				return "PLATINUM Level achieved";
 			
-           else if(customer.getOrderCount() == 20){
-        	   return "You are a Gold Customer now";
-           }
-			
-           else
-        	   return "Visit again. Thank You!";
+			else
+				return "Order Placed!";
 			
 		}
 		
 		throw new UserCreationException("No User found with emailId "+ emailId);
+		
+	}
+	
+	
+
+	private void placeOrder(Order order, Customer customer) {
+		
+		if(customer.getOrderCount() == 10)
+			customer.setCustomerType("Gold");
+		
+		if(customer.getOrderCount() == 20)
+			customer.setCustomerType("Platinum");
+		
+		if(customer.getOrderCount() >= 10 && customer.getOrderCount() < 20)
+			order.setDiscountAmount(10);
+		
+		if(customer.getOrderCount() >= 20)
+			order.setDiscountAmount(20);
+		
+		order.setCustomer(customer);
+		order.setOrderDate(LocalDateTime.now());
+		List<Order> list = customer.getOrders();
+		list.add(order);
+		customer.setOrders(list);
+		
+		orderRepo.save(order);
 		
 	}
 

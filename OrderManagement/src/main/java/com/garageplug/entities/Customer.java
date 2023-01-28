@@ -4,23 +4,24 @@ package com.garageplug.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
+//This is the entity class for storing user data about personal data and order history in the database
+// The Customer Entity and Order entity have One to Many relation between them.
 
 @Entity
 @Table(name = "Customers")
 public class Customer {
 	
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long customerId;
 	
@@ -31,21 +32,17 @@ public class Customer {
 	@JsonIgnore
 	private String customerType;
 	
-	@Email
-	@Id
 	private String email;
 	
-	@Pattern(regexp = "[0-9]{10}")
     private String phone;
 	
 	private String password;
     
 	private Integer orderCount;
 	
-
-	@OneToMany(cascade = CascadeType.MERGE , mappedBy = "customer")
+	@OneToMany(mappedBy = "customer")
 	@JsonIgnore
-	private List<Order> orderList = new ArrayList<>();
+	private List<Order> orders = new ArrayList<>();
 	
 	
 	
@@ -57,10 +54,9 @@ public class Customer {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
-public Customer(Long customerId, String firstName, String lastName, String customerType, @Email String email,
-		@Pattern(regexp = "[0-9]{10}") String phone, String password, Integer orderCount, List<Order> orderList) {
+
+public Customer(Long customerId, String firstName, String lastName, String customerType, String email, String phone,
+		String password, Integer orderCount, List<Order> orders) {
 	super();
 	this.customerId = customerId;
 	this.firstName = firstName;
@@ -70,7 +66,7 @@ public Customer(Long customerId, String firstName, String lastName, String custo
 	this.phone = phone;
 	this.password = password;
 	this.orderCount = orderCount;
-	this.orderList = orderList;
+	this.orders = orders;
 }
 
 
@@ -169,21 +165,15 @@ public Customer(Long customerId, String firstName, String lastName, String custo
 	}
 
 
-
-	public List<Order> getOrderList() {
-		return orderList;
+	public List<Order> getOrders() {
+		return orders;
 	}
 
 
-
-	public void setOrderList(List<Order> orderList) {
-		this.orderList = orderList;
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
-	
-	
-	
-	
-	
-	
+
+		
 
 }
